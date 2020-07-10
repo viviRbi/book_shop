@@ -28,7 +28,7 @@ class Bootstrap{
     }
 
     public function _error(){
-        require_once APPLICATION_PATH. 'module' .DS. DEFAULT_MODULE .DS. 'controllers' .DS. 'ErrorController.php';
+        require_once MODULE_PATH. DEFAULT_MODULE .DS. 'controllers' .DS. 'ErrorController.php';
         $error = new ErrorController();
     }
 }
