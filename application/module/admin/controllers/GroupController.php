@@ -5,7 +5,6 @@ class GroupController extends Controller{
     // }
     public function indexAction(){
         echo "</br> Index Group Action";
-        print_r($this);
     }
 
 }

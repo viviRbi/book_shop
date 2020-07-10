@@ -7,16 +7,15 @@ class Bootstrap{
         $action = isset($_params['action'])? $_params['action'] : DEFAULT_ACTION;
 
         $controllerName = ucfirst($controller) . 'Controller';
-        $filePath = MODULE_PATH . $module .DS. 'controllers' .DS. $controllerName . '.php';
+        $filePath = MODULE_PATH . $module .DS. 'controllers'. DS. $controllerName . '.php';
+
         if(file_exists($filePath)){
             require_once $filePath;
             $controllerObject = new $controllerName();
-
             $noModel = ['ErrorController'];
 
-            // auto load model
+            // auto load model except controller in noModel array
             if(!in_array($controllerName,$noModel)){
-                print_r($controllerObject);
                 $controllerObject->loadModel($module, $controller);
             }
 

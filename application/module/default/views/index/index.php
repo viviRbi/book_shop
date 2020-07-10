@@ -1,0 +1,1 @@
+<h3>Default Index action test</h3>

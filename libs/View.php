@@ -1,8 +1,14 @@
 <?php
 class View{
-    public function render($module, $fileInclude){
-        echo "</br> Render View </br>";
-        echo $path = MODULE_PATH.$module.DS.'views'.DS.$fileInclude;
+    private $_moduleName;
+    public function __construct($moduleName){
+        $this->_moduleName = $moduleName;
+    }
+    public function render($fileInclude){
+        $path = MODULE_PATH.$this->_moduleName.DS.'views'.DS.$fileInclude .".php";
+        if(!file_exists($path)){
+            $path = MODULE_PATH.DEFAULT_MODULE.DS.'views'.DS.$fileInclude .".php";
+        }
         require_once $path;
     }
 }
