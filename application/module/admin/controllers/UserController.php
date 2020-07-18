@@ -9,9 +9,6 @@ class UserController extends Controller{
         $this->_templateObj->setFileConfig('template.ini');
         $this->_templateObj->load();
         $this->_view->render('user/login');
-        echo '<pre';
-        print_r($this);
-        echo '</pre>';
     }
 }
 ?>

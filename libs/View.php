@@ -8,6 +8,7 @@ class View{
     public $_metaName;
     public $_css;
     public $_js;
+    public $_dirImg;
 
     public function __construct($moduleName){
         $this->_moduleName = $moduleName;
