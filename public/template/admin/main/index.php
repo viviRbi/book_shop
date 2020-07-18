@@ -2,10 +2,10 @@
 <html>
 <head>
 	<?php echo $this->_metaHTTP;?>
-	<?php echo $this->_metaName;?>
+	<?php echo $this->_metaName;?> 
     <?php echo $this->_title;?>
-    <?php echo $this->_cssFiles;?>
-    <?php echo $this->_jsFiles;?>
+    <?php echo $this->_css;?>
+    <?php echo $this->_js;?>
 </head>
 <body>
 	<div id="border-top" class="h_blue">
@@ -14,7 +14,7 @@
 	<div id="content-box">
 		<!--  LOAD CONTENT -->
 		<?php 
-			require_once APPLICATION_PATH. $this->_moduleName . DS . 'views' . DS . $this->_fileView . '.php';
+			// require_once APPLICATION_PATH. $this->_moduleName . DS . 'views' . DS . $this->_fileView . '.php';
 		?>
 	</div>
 	<div id="footer">

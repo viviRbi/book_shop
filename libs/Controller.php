@@ -1,7 +1,7 @@
 <?php
  class Controller{
 
-    protected $_view;
+    public $_view;
     protected $_model;
     protected $_arrParam;
     protected $_templateObj;

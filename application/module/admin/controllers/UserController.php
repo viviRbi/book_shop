@@ -7,8 +7,11 @@ class UserController extends Controller{
         $this->_templateObj->setFolderTemplate('admin/main');
         $this->_templateObj->setFileTemplate('index.php');
         $this->_templateObj->setFileConfig('template.ini');
-        $this->load();
+        $this->_templateObj->load();
         $this->_view->render('user/login');
+        echo '<pre';
+        print_r($this);
+        echo '</pre>';
     }
 }
 ?>
