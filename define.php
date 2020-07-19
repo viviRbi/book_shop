@@ -21,6 +21,7 @@
 
 	define	('PUBLIC_SCRIPT'		, 'scripts'. DS);
 	define	('PUBLIC_FILE'			, 'files' . DS);
+	define  ('PUBLIC_IMG'			,	PUBLIC_URL . 'files/images');
 
 	// ============define	('DEFAULT_ACTION'		, 'index');========== DATABASE ===========================
 	define ('DB_HOST'			, 'localhost');

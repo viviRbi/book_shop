@@ -14,14 +14,14 @@ class Template{
         $folderTemplate = $this->getFolderTemplate();
         $fileTemplate = $this->getFileTemplate();
 
-        $pathFileConfig = TEMPLATE_PATH . $folderTemplate . DS .$fileConfig;
+        echo $pathFileConfig = TEMPLATE_PATH . $folderTemplate . DS .$fileConfig;
 
         if(file_exists($pathFileConfig)){
             $arrConfig= parse_ini_file($pathFileConfig);
 
             $view = $this->_controller->getView();
 
-            $view->_title= $this->title($arrConfig['title']);
+            echo $view->_title= $this->title($arrConfig['title']);
             $view->_meta= $this->loopMeta($arrConfig['metaHTTP'], 'http-equiv');
             $view->_meta.= $this->loopMeta($arrConfig['metaName'], 'name');
             $view->_css= $this->linkCssJs($arrConfig['publicCss'],$arrConfig['dirCss'],$arrConfig['fileCss'],'css');
