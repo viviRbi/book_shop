@@ -53,5 +53,16 @@
         header("location: index.php?controller=$controller&action=$action");
         exit();
     }
+
+    // set up template
+    protected function setUpTemplate($module =null,$folder='main',$phpFile='index.php',$iniFile='template.ini'){
+        if($module == null){
+            $module = $this->_arrParam['module'];
+        }
+        $this->_templateObj->setFolderTemplate("$module/$folder");
+        $this->_templateObj->setFileTemplate($phpFile);
+        $this->_templateObj->setFileConfig($iniFile);
+        $this->_templateObj->load();
+    }
 }
 ?>

@@ -22,8 +22,8 @@ class Template{
             $view = $this->_controller->getView();
 
             $view->_title= $this->title($arrConfig['title']);
-            $view->_metaHTTP= $this->loopMeta($arrConfig['metaHTTP'], 'http-equiv');
-            $view->_metaName= $this->loopMeta($arrConfig['metaName'], 'name');
+            $view->_meta= $this->loopMeta($arrConfig['metaHTTP'], 'http-equiv');
+            $view->_meta.= $this->loopMeta($arrConfig['metaName'], 'name');
             $view->_css= $this->linkCssJs($arrConfig['publicCss'],$arrConfig['dirCss'],$arrConfig['fileCss'],'css');
             $view->_js= $this->linkCssJs($arrConfig['publicJs'],$arrConfig['dirJs'],$arrConfig['fileJs'],'js');
             $view->_dirImg= $arrConfig['dirImg'];
