@@ -18,6 +18,7 @@ class UserController extends Controller{
 
     public function indexAction(){
         $this->setUpTemplate('default');
+        // aplication/module/admin/view/user
         $this->_view->render('user/index');
     }
 }

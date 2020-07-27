@@ -55,11 +55,14 @@
     }
 
     // set up template
-    protected function setUpTemplate($module =null,$folder='main',$phpFile='index.php',$iniFile='template.ini'){
+    protected function setUpTemplate($module =null,$controller=null,$folder='main',$phpFile='index.php',$iniFile='template.ini'){
         if($module == null){
             $module = $this->_arrParam['module'];
         }
-        $this->_templateObj->setFolderTemplate("$module/$folder");
+        if($controller == null){
+            $controller = $this->_arrParam['controller'];
+        }
+        $this->_templateObj->setFolderTemplate("$module/$controller/$folder");
         $this->_templateObj->setFileTemplate($phpFile);
         $this->_templateObj->setFileConfig($iniFile);
         $this->_templateObj->load();
