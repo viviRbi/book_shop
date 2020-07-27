@@ -3,7 +3,7 @@
     <nav class = 'text-secondary mb-3'>
         <h2>Module Manager: Modules</h2>
     </nav>
-    <!-- Search and filter -->
+    <!-- Select box-->
     
         <ul class="nav bg-light nav-tabs">
             <li class="nav-item">
@@ -17,26 +17,37 @@
             </li>
         </ul>
         <br/><br/>
-        
-        <div class="nav">
-            <span >Filter</span>&nbsp;
-            <input placeholder='Type here'/>
+
+<!-- Search box-->
+<div class='row'>
+<div class='col-6'>
+    <div class="form-group row ">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Filter</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail3" placeholder="Search">
         </div>
-    <br/><br/>
+    </div>
+</div>
+
 
     <!--List item -->
-    <div class='row'>
-        <p class="inline-block mr-1"><strong>List Item</strong></p>
-        <a class ='mr-1' href="<?php echo $FRONTEND?>/addUser.php">Add User</a>
+    <div class="col-6">
 
-        <form name="bullActionForm" action='<?php echo $FRONTEND?>/multi_action.php' method='post'>
-            <select name="bullaction" onchange="actionOption(this)">
+        <form class='form-inline float-right' name="bullActionForm" action='<?php echo $FRONTEND?>/multi_action.php' method='post'>
+            <select name="bullaction" class='custom-select inline-block mr-3' onchange="actionOption(this)">
                 <option value = "null">Choose action</option>
-                <option value = 0>Active</option>
-                <option value = 1>Inactive</option>
-                <option value = "multi-delete">Multi-Delete</option>
+                <option value = 0>New</option>
+                <option value = 1>Edit</option>
+                <option value = 1>Duplicate</option>
+                <option value = 1>Publish</option>
+                <option value = 1>Unpublish</option>
+                <option value = 1>Check in</option>
+                <option value = 1>Trash</option>
             </select>
+    
             <input type="submit" id="actionSubmit" value="Apply" disabled="disabled">
         </form>
     </div>
+</div>
+
     </br></br></br>

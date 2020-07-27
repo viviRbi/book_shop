@@ -22,7 +22,11 @@ class View{
         if(file_exists($path)){
             if($loadFull==true){
                 $this->_loadContentPath = $path;
+                // Load head & foot (html,body,link,meta)
+                include_once PUBLIC_PATH .PUBLIC_SCRIPT.'php'.DS.'head.php';
+                // Load template for each module/controller
                 require_once $this->_templatePath;
+                include_once PUBLIC_PATH .PUBLIC_SCRIPT.'php'.DS.'foot.php';
             } else {
                 echo "<!DOCTYPE html> <html><head>";
                 echo $this->_title . $this->_metaHTTP. $this->_metaName . $this->_css . $this->_js;
