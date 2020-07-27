@@ -4,6 +4,7 @@ class View{
     public $_templatePath;
 
     public $_title;
+    public $_headline;
     public $_meta;
     public $_css;
     public $_js;

@@ -10,6 +10,7 @@
         $this->setParams();
         $this->setTemplate();
         $this->setView();
+        $this->_view->_arrParam = $this->_arrParam;
     }
 
     //set 

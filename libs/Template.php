@@ -45,16 +45,13 @@ class Template{
         if($type === 'css'){
             $openTag = '<link rel="stylesheet" type="text/css" href="';
             $closeTag = '"/>';
-            $xhtml .= $this->loopJsCss($publicPath, $publicFile,$openTag,$closeTag);
-            $xhtml .= $this->loopJsCss($path, $file, $openTag,$closeTag);
-            return $xhtml;
-        }else if ($type === 'js'){
+        }else{
             $openTag = '<script type="text/javascript" src="';
             $closeTag = '"></script>';
-            $this->loopJsCss($publicPath, $publicFile, $openTag,$closeTag);
-            $this->loopJsCss($path, $file, $openTag, $closeTag);
-            return $xhtml;
         }
+        $xhtml .= $this->loopJsCss($publicPath, $publicFile,$openTag,$closeTag);
+        $xhtml .= $this->loopJsCss($path, $file, $openTag,$closeTag);
+        return $xhtml;
     }
 
     private function loopJsCss($path, $file,$openTag,$closeTag){

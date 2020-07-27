@@ -1,6 +1,6 @@
-<?php 
-
-?>
+	<!--  LOAD Header -->
+    <?php include_once TEMPLATE_PATH . ADMIN_MODULE. DS. 'group'.DS.'main'.DS.'html/header.php'; ?>
+    
     <!-- User info -->
     <table class='table table-striped table-light table-hover table-bordered'>
         <thead class='thead-light'>
@@ -14,7 +14,7 @@
             <th><button class='btn btn-link'>Language</button></th>
             <th><button class='btn btn-link'>ID</button></th>
         </thead>  
-
+        
         <tbody>
             <tr>
                 <th><input  type='checkbox' name='check'></th>
@@ -41,4 +41,7 @@
         </tbody>
     </table>
     </br>
+
+    	<!--  LOAD Footer -->
+	<?php include_once TEMPLATE_PATH . ADMIN_MODULE. DS. 'group'.DS.'main'.DS.'html/footer.php'; ?>
 
