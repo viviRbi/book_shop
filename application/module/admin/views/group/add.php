@@ -4,7 +4,7 @@
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Group Title</label>
             <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            <input type="text" class="form-control" id="groupName" value="New Group">
             </div>
         </div>
         <div class="form-group row">
