@@ -29,5 +29,19 @@ class GroupController extends Controller{
         $result = $this->_model->changeStatus($this->_arrParam, array('task'=>'change-ajax-group-acp'));
         echo json_encode($result);
     }
+
+    public function publishAction(){
+        $result = $this->_model->changeStatus($this->_arrParam, array('task'=>'change-status'));
+        echo json_encode($result);
+        header('location: '. URL::createLink('admin','group','index'));
+        exit();
+    }
+
+    public function unPublishAction(){
+        $result = $this->_model->changeStatus($this->_arrParam, array('task'=>'change-status'));
+        echo json_encode($result);
+        header('location: '. URL::createLink('admin','group','index'));
+        exit();
+    }
 }
 ?>

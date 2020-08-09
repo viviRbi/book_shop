@@ -41,3 +41,8 @@ $(document).ready(function(){
         })
     })
 })
+
+function submitForm(link){
+    $('#adminForm').attr('action',link);
+    $('#adminForm').submit();
+}

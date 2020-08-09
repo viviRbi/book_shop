@@ -5,7 +5,14 @@ class Helper{
     // create button base on Name and href link
     public function cmsButton($name,$link,$icon=null){
         $nameTrim = str_replace(' ', '',$name);
-        $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href = $link> $name </a>";
+        
+        $forSubmit = ['publish','unpublish'];
+        if(in_array(lcfirst($nameTrim),$forSubmit)){
+            $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link')\"> $name </a>";
+        }else{
+            $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href = $link> $name </a>";
+        }
+        
         return $xhtml;
     }
 

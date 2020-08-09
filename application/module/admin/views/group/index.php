@@ -8,7 +8,7 @@
     <table class='table table-striped table-light table-hover table-bordered'>
         <thead class='thead-light'>
             <th><input  type='checkbox' name='checkall-toggle'></th>
-            <th><button class='btn btn-link'>Title</button></th>
+            <th><button class='btn btn-link'>Group</button></th>
             <th><button class='btn btn-link'>Status</strong></button></th>
             <th><button class='btn btn-link'>Group ACP</button></th>
             <th><button class='btn btn-link'>Ordering</button></th>
@@ -24,7 +24,7 @@
         if(!empty($this->items)){
             foreach($this->items as $key => $value){
                 $id = $value['id'];
-                $chk = "<th><input  type='checkbox' name='check'></th>";
+                $chk = "<th><input type='checkbox' name='check[]' value='$id'></th>";
                 $name = $value['name'];
 
                 $status = Helper::cmsStatus($value['status'], URL::createLink('admin','group','ajaxStatus',array('id'=>$id,'status'=>$value['status'])), $id);

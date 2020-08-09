@@ -24,6 +24,23 @@ class GroupModel extends Model{
             $this->query($query);
             return array($id,$group_acp ,URL::createLink('admin','group','ajaxGroupACP',array('id'=>$id,'group_acp '=>$group_acp)));
         }
+        if($option['task'] == 'change-status'){
+            if($arrParam['check']){
+                $status= ($arrParam['action'] == 'publish')? 1:0;
+                $arrId='';
+                if(sizeof($arrParam['check'])>1){
+                    foreach ($arrParam['check'] as $value){
+                        $arrId .= ',' . $value;
+                    }
+                    $arrId = substr($arrId, 1);
+                    echo $query = "UPDATE `$this->table` SET `status`=".$status." WHERE `id` IN (". $arrId .")";
+                }else{
+                    $arrId = $arrParam['check'][0];
+                    echo $query = "UPDATE `$this->table` SET `status`=".$status. " WHERE `id`=$arrId";
+                }
+                $this->query($query);
+            }
     }
+}
 }
 ?>
