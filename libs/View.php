@@ -30,7 +30,7 @@ class View{
                 include_once PUBLIC_PATH .PUBLIC_SCRIPT.'php'.DS.'foot.php';
             } else {
                 echo "<!DOCTYPE html> <html><head>";
-                echo $this->_title . $this->_metaHTTP. $this->_metaName . $this->_css . $this->_js;
+                echo $this->_title . $this->_meta . $this->_css . $this->_js;
                 echo '</head><body>';
                 require_once $path;  
                 echo '</body></html>';  

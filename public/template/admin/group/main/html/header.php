@@ -3,7 +3,7 @@
     <!-- Nav tab-->
     <?php include_once MODULE_PATH . ADMIN_MODULE . DS. VIEW.DS.'group'.DS.'nav-tabs'.DS.'index.php'?>
         
-
+    <form action='#' method='post' name='adminForm' id='adminForm'>
     <!-- Search box-->
     <div class='row'>
         <div class='col-6'>

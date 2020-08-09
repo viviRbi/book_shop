@@ -4,7 +4,7 @@
     $linkUserManager = URL::createLink('admin', 'user', 'index');
     $linkAddUser = URL::createLink('admin', 'user', 'add');
     $linkGroupManager = URL::createLink('admin', 'group', 'index');
-    $linkAddGroup = URL::createLink('admin', 'group', 'index');
+    $linkAddGroup = URL::createLink('admin', 'group', 'add');
 ?>
 <div class="container mt-5 mb-5">
     <nav class = 'row text-secondary mb-3'>
@@ -30,20 +30,20 @@
                 </li>
 
                 <li class="nav-item dropdown" id="user-option">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User Option
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">User Manager</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Add User</a></li>
+                                <li><a class="dropdown-item" href=<?php echo $linkAddUser?>>Add User</a></li>
                             </ul>
                         </li>
 
-                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Group Mnager</a>
+                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href=<?php echo $linkGroupManager?>>Group Manager</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Add group</a></li>
+                                <li><a class="dropdown-item" href=<?php echo $linkAddGroup?>>Add group</a></li>
                             </ul>
                         </li>
 

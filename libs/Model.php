@@ -12,7 +12,7 @@ class Model{
 			$params['username']	= DB_USER;
 			$params['password']	= DB_PASS;
 			$params['database']	= DB_NAME;
-			$params['table']	= DB_TABLE;
+			$params['table']	= TBL_GROUP;
 		}
 		$link = mysqli_connect($params['server'],$params['username'],$params['password']);
 		if(!$link){

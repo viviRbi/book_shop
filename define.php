@@ -28,12 +28,14 @@
 	define  ('PUBLIC_IMG'			,	PUBLIC_URL . 'files/images');
 
 	// ============define	('DEFAULT_ACTION'		, 'index');========== DATABASE ===========================
-	define ('DB_HOST'			, 'localhost');
-	define ('DB_USER'			, 'root');						
-	define ('DB_PASS'			, '');						
-	define ('DB_NAME'			, 'bookstore');						
-	define ('DB_TABLE'			, 'group');			
+	define ('DB_HOST'			, '103.68.68.143');
+	define ('DB_USER'			, 'hailan_zdemo');						
+	define ('DB_PASS'			, 'VclSCG[jT7g5');						
+	define ('DB_NAME'			, 'hailan_zdemo');								
 
 	// ====================== DATABASE TABLE===========================
 	define ('TBL_GROUP'			, 'group');
+	define ('TBL_BOOK'			, 'book');
+	define ('TBL_CART'			, 'cart');
+	define ('TBL_USER'			, 'user');
 

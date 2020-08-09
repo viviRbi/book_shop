@@ -7,6 +7,7 @@
         <button class='btn btn-light'>End</button>
         <a class='btn'>Page 1 of 2</a>
     </div>
+</form>
 
     <div class='float-none mb-5'>&nbsp;</div>
 

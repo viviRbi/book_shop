@@ -17,9 +17,16 @@ class UserController extends Controller{
     }
 
     public function indexAction(){
-        $this->setUpTemplate('default');
+        $this->setUpTemplate();
         // aplication/module/admin/view/user
+        $this->_view->setTitle('Users');
         $this->_view->render('user/index');
+    }
+
+    public function addAction(){
+        $this->setUpTemplate();
+        $this->_view->setTitle('Log out');
+        $this->_view->render('user/add',false);
     }
 }
 ?>
