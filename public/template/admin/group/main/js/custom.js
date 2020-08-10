@@ -46,3 +46,9 @@ function submitForm(link){
     $('#adminForm').attr('action',link);
     $('#adminForm').submit();
 }
+
+function alphabetOrder(objectHTML,column,order){
+    $('input[name=filter_column]').val(column);
+    $('input[name=filter_column_dir]').val(order);
+    $('#adminForm').submit();
+}

@@ -1,21 +1,21 @@
 	<!--  LOAD Header -->
     <?php 
     include_once TEMPLATE_PATH . ADMIN_MODULE. DS. 'group'.DS.'main'.DS.'html/header.php'; 
-
     ?>
     
     <!-- User info -->
     <table class='table table-striped table-light table-hover table-bordered'>
         <thead class='thead-light'>
             <th><input  type='checkbox' name='checkall-toggle'></th>
-            <th><button class='btn btn-link'>Group</button></th>
-            <th><button class='btn btn-link'>Status</strong></button></th>
-            <th><button class='btn btn-link'>Group ACP</button></th>
-            <th><button class='btn btn-link'>Ordering</button></th>
-            <th><button class='btn btn-link'>Created</button></th>
-            <th><button class='btn btn-link'>Created By</button></th>
-            <th><button class='btn btn-link'>Modified</button></th>
-            <th><button class='btn btn-link'>Modified By</button></th>
+            <?php 
+            $columnPost = isset($this->_arrParam['filter_column'])? $this->_arrParam['filter_column']: 'name';
+            $orderPost = isset($this->_arrParam['filter_column_dir'])? $this->_arrParam['filter_column_dir']: 'asc';
+
+            $titleArr= ['Name','Status','Group ACP', 'Ordering','Created','Created By','Modified','Modified By'];
+            foreach ($titleArr as $value){
+                echo Helper::cmsTitle($value,$columnPost,$orderPost);
+            }
+            ?>
         </thead>  
         
         <tbody>
@@ -48,6 +48,10 @@
                }
             }
         ?>
+        <div>
+            <input type="hidden" name="filter_column" value="Ordering"/>
+            <input type="hidden" name="filter_column_dir" value="asc"/>
+        </div>
         </tbody>
     </table>
     </br>

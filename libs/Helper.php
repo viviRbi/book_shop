@@ -6,7 +6,8 @@ class Helper{
     public function cmsButton($name,$link,$icon=null){
         $nameTrim = str_replace(' ', '',$name);
         
-        $forSubmit = ['publish','unpublish'];
+        // The btn that use submitForm function in custom.js (had redirect in GroupController)
+        $forSubmit = ['publish','unpublish','trash'];
         if(in_array(lcfirst($nameTrim),$forSubmit)){
             $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link')\"> $name </a>";
         }else{
@@ -34,6 +35,20 @@ class Helper{
         $class= ($groupValue == 1)? 'success':'warning';
         $xhtml = "<a id='group-acp-$id' href=\"javascript:changeGroupACP('$link')\"><span class='btn btn-$class btn-circle'></span></a>";
         return $xhtml;
+    }
+
+    // clicked title
+    public function cmsTitle($name,$columnPost, $orderPost){
+        $columnName = ucfirst($name);
+        $order = ($orderPost == 'asc')? 'desc' : 'asc';
+        $btn = "<th><button class=\"btn btn-link\" onclick=\"alphabetOrder(this,'$name','$order')\">".ucfirst($name);
+        $img = '';
+        $img = '<img src="'.TEMPLATE_URL.DS.ADMIN_MODULE.DS.'group/main/images/admin/sort_'.$order.'.png">';
+        if($name == $columnPost){
+            $btn .= $img;
+        }
+        $btn .= '</button></th>';
+        return $btn;
     }
 }
 ?>

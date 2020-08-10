@@ -43,5 +43,12 @@ class GroupController extends Controller{
         header('location: '. URL::createLink('admin','group','index'));
         exit();
     }
+
+    public function trashAction(){
+        $result = $this->_model->deleteItems($this->_arrParam);
+        echo json_encode($result);
+        header('location: '. URL::createLink('admin','group','index'));
+        exit();
+    }
 }
 ?>
