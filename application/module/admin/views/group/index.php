@@ -3,7 +3,7 @@
     include_once TEMPLATE_PATH . ADMIN_MODULE. DS. 'group'.DS.'main'.DS.'html/header.php'; 
     ?>
     
-    <!-- User info -->
+    <!-- Table Header-title -->
     <table class='table table-striped table-light table-hover table-bordered'>
         <thead class='thead-light'>
             <th><input  type='checkbox' name='checkall-toggle'></th>
@@ -32,6 +32,8 @@
                 $created = Helper::formatDate('M j, Y', $value['created']);
                 $modified = Helper::formatDate('M j, Y', $value['modified']);
         ?>
+
+        <!-- Table row - info -->
             <tr>
                 <?php echo $chk ?>
                 <td class='btn btn-link text-center'><?php echo $name ?></td>

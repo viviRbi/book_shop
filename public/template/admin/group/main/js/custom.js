@@ -52,3 +52,6 @@ function alphabetOrder(objectHTML,column,order){
     $('input[name=filter_column_dir]').val(order);
     $('#adminForm').submit();
 }
+
+
+

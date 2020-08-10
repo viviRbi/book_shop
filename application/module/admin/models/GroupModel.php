@@ -2,7 +2,7 @@
 class GroupModel extends Model{
 
     public function listItems($arrParam, $option){
-        // Order Asc, Des
+        // Sort Order Asc, Des
         if(!empty($arrParam['filter_column'])&& !empty($arrParam['filter_column_dir'])){
             // True name in database
             $column = strtolower($arrParam['filter_column']);
@@ -13,7 +13,15 @@ class GroupModel extends Model{
             $dir = 'asc';
         }
 
-        $query= "SELECT * FROM `" .TBL_GROUP. "`" . "ORDER BY `$column` $dir";
+        // Filter: search keyword
+        if(!empty($arrParam['filter_keyword'])){
+            $keyword = '"%' . $arrParam['filter_keyword'] .'%"';
+            $WhereQuery = " WHERE `name` LIKE " . $keyword . " ";
+
+            $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. "ORDER BY `$column` $dir";
+        }else{
+            $query= "SELECT * FROM `" .TBL_GROUP. "`" . "ORDER BY `$column` $dir";
+        }
 
         $result= $this->listRecord($query);
         return $result;
