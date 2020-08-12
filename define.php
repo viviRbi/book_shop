@@ -14,6 +14,7 @@
 	define	('APPLICATION_URL'	, ROOT_URL . 'application' . DS);
 	define	('PUBLIC_URL'		, ROOT_URL . 'public' . DS);
 	define	('TEMPLATE_URL'		, PUBLIC_URL . 'template' . DS);
+	define ('LIBRARY_URL'		,ROOT_URL . 'libs' . DS);
 
 	// ====================== SINGLE NAME ===========================
 	define	('ADMIN_MODULE'			, 'admin');
