@@ -54,7 +54,7 @@ class Helper{
     public function cmsSelectbox($arrValue,$keySelect = 2){
         $xhtml = '';
         foreach($arrValue as $key=>$value){
-            $xhtml .= "<option value=$key class='text-center'";
+            $xhtml .= "<option value='$key' class='text-center'";
             if ($key = $keySelect){
                 $xhtml .= 'selected = selected';
             }

@@ -5,10 +5,11 @@
     include_once MODULE_PATH . ADMIN_MODULE . DS. VIEW.DS.'group'.DS.'nav-tabs'.DS.'index.php';
 
     $arrStatus = array(0=>'Unpublish', 1=>'Publish', 2=> '-Select Status-');
-    $selectBoxStatus = Helper::cmsSelectbox($arrStatus, $this->_arrParam['filter_status']);
-    echo "<pre>";
-    print_r($this->_arrParam);
-    echo "</pre>";
+    $filter_status = isset($this->_arrParam['filter_status'])?$this->_arrParam['filter_status']: 2;
+    $selectBoxStatus = Helper::cmsSelectbox($arrStatus, $filter_status);
+    // echo "<pre>";
+    // print_r($this->_arrParam);
+    // echo "</pre>";
     ?>
         
     <form action='#' method='post' name='adminForm' id='adminForm'>

@@ -6,10 +6,19 @@
     protected $_arrParam;
     protected $_templateObj;
 
+    // Pagination
+    protected $_pagination = array(
+        'totalItemsPerPage' => 4,
+        'pageRange' =>3
+    );
+
     public function __construct(){
         $this->setParams();
         $this->setTemplate();
         $this->setView();
+
+        $this->_pagination['currentPage'] = (isset($_GET['page'])) ? $_GET['page'] : 1;
+        $this->_arrParam['pagination'] = $this->_pagination;
         $this->_view->_arrParam = $this->_arrParam;
     }
 

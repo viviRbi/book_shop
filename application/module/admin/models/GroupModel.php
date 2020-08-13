@@ -1,7 +1,33 @@
 <?php 
 class GroupModel extends Model{
 
-    public function listItems($arrParam, $option){
+    public function countItems($arrParam, $option=null){
+        $WhereQuery = '';
+        // Count: search keyword
+        if(!empty($arrParam['filter_keyword'])){
+            $keyword = '"%' . $arrParam['filter_keyword'] .'%"';
+            $WhereQuery .= " WHERE `name` LIKE " . $keyword . " ";
+
+            $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
+        }else{
+            $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`";
+        }
+
+        // Count: search status
+        if(isset($arrParam['filter_status'])&&!$arrParam['filter_status']==2){
+            if(!empty($arrParam['filter_keyword'])){
+                $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
+            }else{
+                $WhereQuery = " WHERE `status`= '" . $arrParam['filter_status'] ."'";
+            }
+            echo $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
+        }
+
+        $result= $this->listRecord($query);
+        return $result;
+    }
+
+    public function listItems($arrParam, $option=null){
         // Sort Order Asc, Des
         $WhereQuery = '';
         if(!empty($arrParam['filter_column'])&& !empty($arrParam['filter_column_dir'])){
@@ -23,16 +49,27 @@ class GroupModel extends Model{
             $query= "SELECT * FROM `" .TBL_GROUP. "`" . "ORDER BY `$column` $dir";
         }
 
-        // Filter: search keyword
-        if(!empty($arrParam['filter_status']) && $arrParam['filter_status']!=2){
+        // Filter: search status
+        if(isset($arrParam['filter_status'])&&!$arrParam['filter_status']==2){
             if(!empty($arrParam['filter_keyword'])){
                 $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
             }else{
                 $WhereQuery = " WHERE `status`= '" . $arrParam['filter_status'] ."'";
             }
-            echo $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
+            $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
         }
 
+        // Pagination
+        $pagination = $arrParam['pagination'];
+        $totalItemsPerPage = $pagination['totalItemsPerPage'];
+        if($totalItemsPerPage > 0){
+            $currentPage			= $pagination['currentPage'];
+
+            $limitStart             = ($currentPage-1) * $totalItemsPerPage;
+            $position = ($currentPage-1)*$totalItemsPerPage;
+            $pagiQuery = " LIMIT $position, $totalItemsPerPage";
+            $query .= $pagiQuery;
+        }
         $result= $this->listRecord($query);
         return $result;
     }

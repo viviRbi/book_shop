@@ -9,6 +9,11 @@ class GroupController extends Controller{
         $this->_view->setTitle('User Manager: User group');
         $this->_view->items = $this->_model->listItems($this->_arrParam,'sd');
         $this->_view->_headline = 'User Manager: User group';
+
+        // Total Items
+        $countArr = $this->_model->countItems($this->_arrParam,null)[0];
+        $totalItems = $countArr[key($countArr)];
+        $this->_view->pagination = new Pagination($totalItems,$this->_arrParam['pagination']);
         $this->_view->render('group/index');
     }
     // Them group
