@@ -7,7 +7,7 @@ class Helper{
         $nameTrim = str_replace(' ', '',$name);
         
         // The btn that use submitForm function in custom.js (had redirect in GroupController)
-        $forSubmit = ['publish','unpublish','trash'];
+        $forSubmit = ['publish','unpublish','trash','ordering'];
         if(in_array(lcfirst($nameTrim),$forSubmit)){
             $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link')\"> $name </a>";
         }else{

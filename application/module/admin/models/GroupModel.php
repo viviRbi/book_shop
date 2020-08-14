@@ -35,7 +35,7 @@ class GroupModel extends Model{
             $column = str_replace(' ','_',$column);
             $dir = strtolower($arrParam['filter_column_dir']);
         }else{
-            $column = 'name';
+            $column = 'ordering';
             $dir = 'asc';
         }
 
@@ -122,6 +122,17 @@ class GroupModel extends Model{
             }
             $query = "DELETE FROM `$this->table` WHERE `id` IN (". $arrId .")";
             $this->query($query);
+        }
+    }
+
+    public function ordering($arrParam, $option=null){
+        if($option == null){
+            if(!empty($arrParam['order'])){
+                foreach($arrParam['order'] as $id=>$ordering){
+                    echo $query = "UPDATE `$this->table` SET `ordering` = '$ordering' WHERE `id`=$id";
+                    $this->query($query);
+                }
+            }
         }
     }
 }

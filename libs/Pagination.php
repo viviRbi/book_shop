@@ -58,6 +58,7 @@
             $prev='';
             $next='';
             $end='';
+            $info = "<div class=''><p class='btn disabled text-success'>Page $this->currentPage of $this->totalPage</p></div>";
 
             // If there's more than 1 page, show start, prev, next, end
             if($this->totalPage > 1){
@@ -110,7 +111,7 @@
                 $listPages='<button class="btn btn-light"><a href="#">1</a>';
             }
            
-            $html = "<div class = 'row float-right'>" . $start .$prev .$listPages .$next .$end . "</div>";
+            $html = "<div class = 'row float-right'><div>" . $start .$prev .$listPages .$next .$end."</div>".$info."</div>";
 
             return $html;
         }  

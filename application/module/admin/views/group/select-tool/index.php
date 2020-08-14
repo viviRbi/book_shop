@@ -3,7 +3,7 @@ $action = $this->_arrParam['action'];
 $btnName = array();
 
 // create bt base on Array
-$arr= ['add','edit','duplicate','publish','unpublish','checkIn','trash','save','save New','save Close','cancel'];
+$arr= ['add','edit','duplicate','publish','unpublish','ordering','checkIn','trash','save','save New','save Close','cancel'];
 
 foreach ($arr as $key=>$name){
     $ucName = ucfirst($name);
@@ -16,7 +16,7 @@ foreach ($arr as $key=>$name){
 $btnStr = '';
 switch ($this->_arrParam['action']){
     case 'index':
-        $btnStr .= $btnAdd . $btnPublish . $btnUnpublish . $btnTrash;
+        $btnStr .= $btnAdd . $btnPublish . $btnUnpublish . $btnOrdering. $btnTrash;
     break;
     case 'add':
         $btnStr .= $btnSave . $btnSaveNew . $btnSaveClose .$btnCancel;

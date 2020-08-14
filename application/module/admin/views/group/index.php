@@ -8,7 +8,7 @@
         <thead class='thead-light'>
             <th><input  type='checkbox' name='checkall-toggle'></th>
             <?php 
-            $columnPost = isset($this->_arrParam['filter_column'])? $this->_arrParam['filter_column']: 'ordering';
+            $columnPost = isset($this->_arrParam['filter_column'])? $this->_arrParam['filter_column']: 'Ordering';
             $orderPost = isset($this->_arrParam['filter_column_dir'])? $this->_arrParam['filter_column_dir']: 'asc';
 
             $titleArr= ['Name','Status','Group ACP', 'Ordering','Created','Created By','Modified','Modified By'];
@@ -39,7 +39,7 @@
                 <td class='btn btn-link text-center'><?php echo $name ?></td>
                 <td class='text-center'><?php echo $status ?></td>
                 <td class='text-center'><?php echo $group_acp?></td>
-                <td class='text-center'><?php echo $value['ordering'] ?></td>
+                <td class='text-center'><input name ='order["<?php echo $id?>"]' class='form-control group_order' value=<?php echo $value['ordering'] ?>></td>
                 <td class='text-center'><?php echo $created ?></td>
                 <td class='text-center'><?php echo ucfirst($value['created_by']) ?></td>
                 <td class='text-center'><?php echo $modified ?></td>
