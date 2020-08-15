@@ -20,7 +20,7 @@ class GroupModel extends Model{
             }else{
                 $WhereQuery = " WHERE `status`= '" . $arrParam['filter_status'] ."'";
             }
-            echo $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
+            $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
         }
 
         $result= $this->listRecord($query);
@@ -91,7 +91,7 @@ class GroupModel extends Model{
             return array($id,$group_acp ,URL::createLink('admin','group','ajaxGroupACP',array('id'=>$id,'group_acp '=>$group_acp)));
         }
         if($option['task'] == 'change-status'){
-            if($arrParam['check']){
+            if(isset($arrParam['check'])){
                 $status= ($arrParam['action'] == 'publish')? 1:0;
                 $arrId='';
                 if(sizeof($arrParam['check'])>1){
@@ -102,14 +102,18 @@ class GroupModel extends Model{
                 }else{
                     $arrId = $arrParam['check'][0];
                 }
+                $affectecdItems = sizeof($arrParam['check']);
                 $query = "UPDATE `$this->table` SET `status`=".$status." WHERE `id` IN (". $arrId .")";
                 $this->query($query);
+                Session::set('message',array('class'=>'success','content'=>"Successfully change status for $affectecdItems items"));
+            }else{
+                Session::set('message',array('class'=>'warning','content'=>'Please select checkboxes'));
             }
         }
     }
 
     public function deleteItems($arrParam){
-        if($arrParam['check']){
+        if(isset($arrParam['check'])){
             $status= ($arrParam['action'] == 'publish')? 1:0;
             $arrId='';
             if(sizeof($arrParam['check'])>1){
@@ -122,6 +126,10 @@ class GroupModel extends Model{
             }
             $query = "DELETE FROM `$this->table` WHERE `id` IN (". $arrId .")";
             $this->query($query);
+            $affectecdItems = sizeof($arrParam['check']);
+            Session::set('message',array('class'=>'success','content'=>"Successfully delete $affectecdItems items"));
+        }else{
+            Session::set('message',array('class'=>'warning','content'=>'Please select checkboxes'));
         }
     }
 
@@ -129,10 +137,14 @@ class GroupModel extends Model{
         if($option == null){
             if(!empty($arrParam['order'])){
                 foreach($arrParam['order'] as $id=>$ordering){
-                    echo $query = "UPDATE `$this->table` SET `ordering` = '$ordering' WHERE `id`=$id";
+                    $query = "UPDATE `$this->table` SET `ordering` = '$ordering' WHERE `id`=$id";
                     $this->query($query);
                 }
+                Session::set('message',array('class'=>'success','content'=>"Successfully change the ordering"));
+            }else{
+                Session::set('message',array('class'=>'warning','content'=>'There is a problem with the database'));
             }
+           
         }
     }
 }

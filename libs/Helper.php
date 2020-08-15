@@ -62,5 +62,13 @@ class Helper{
         }
         return $xhtml;
     }
+
+    public function cmsMessage(){
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+            return "<div class='text-center pb-3 alert alert-".$message['class']."' role='alert'>".$message['content']."</div>";
+        }
+    }
+    
 }
 ?>

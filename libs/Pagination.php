@@ -63,10 +63,10 @@
             // If there's more than 1 page, show start, prev, next, end
             if($this->totalPage > 1){
                 $start = '<button class="btn btn-light">Start</button>';
-                $prev = '<button class="btn btn-light">End</button>';
+                $prev = '<button class="btn btn-light">Prev</button>';
                 if($this->currentPage > 1){
                     $start = '<button class="btn btn-light"><a href="'.$this->url.''.$this->urlSymbol.'page=1">Start</a></button>';
-                    $prev = '<button class="btn btn-light"><a href="'.$this->url.''.$this->urlSymbol.'page='.($this->currentPage-1).'">Previous</a></button>';
+                    $prev = '<button class="btn btn-light"><a href="'.$this->url.''.$this->urlSymbol.'page='.($this->currentPage-1).'">Prev</a></button>';
                 }
                 $next = '<button class="btn btn-light">Next</button>';
                 $end = '<button class="btn btn-light">End</button>';
