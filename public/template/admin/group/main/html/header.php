@@ -7,9 +7,7 @@
     $arrStatus = array(0=>'Unpublish', 1=>'Publish', 2=> '-Select Status-');
     $filter_status = isset($this->_arrParam['filter_status'])?$this->_arrParam['filter_status']: 2;
     $selectBoxStatus = Helper::cmsSelectbox($arrStatus, $filter_status);
-    // echo "<pre>";
-    // print_r($this->_arrParam);
-    // echo "</pre>";
+
     ?>
         
     <form action='#' method='post' name='adminForm' id='adminForm'>

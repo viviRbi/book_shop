@@ -16,12 +16,26 @@ class GroupController extends Controller{
         $this->_view->pagination = new Pagination($totalItems,$this->_arrParam['pagination']);
         $this->_view->render('group/index');
     }
-    // Them group
-    public function addAction(){
+    // Add group + Edit group
+    public function formAction(){
         $this->setUpTemplate();
         $this->_view->setTitle('User Manager: User group :Add');
         $this->_view->_headline = 'User Manager: User group :Add';
-        $this->_view->render('group/add');
+        if(isset($this->_arrParam['form'])&&$this->_arrParam['form']['token']>0){
+            $validate = isset($this->_arrParam['form'])?new Validate($this->_arrParam['form']):'';
+            $validate->addRule('title', 'string', array('min'=>3, 'max'=>255))
+                     ->addRule('ordering', 'int',array('min'=>1, 'max'=>100))
+                     ->addRule('status','status',array('deny'=>'default'))
+                     ->addRule('groupAcp','status',array('deny'=>'default'));
+            $validate->run();
+            if($validate->isValid()==false){
+                $this->_view->errors = $validate->showErrors();
+            }else{
+                $result = $this->_model->deleteItems($this->_arrParam);
+                echo json_encode($result);
+            }
+        }
+        $this->_view->render('group/form');
     }
 
     // Action: ajax Status
@@ -51,7 +65,6 @@ class GroupController extends Controller{
 
     public function orderingAction(){
         $result = $this->_model->ordering($this->_arrParam);
-        print_r($result);
         echo json_encode($result);
         header('location: '. URL::createLink('admin','group','index'));
         exit();
