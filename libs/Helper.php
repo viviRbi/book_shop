@@ -3,14 +3,14 @@ class Helper{
     public $btnArr;
 
     // create button base on Name and href link
-    public function cmsButton($name,$link,$icon=null,$type=false){
+    public function cmsButton($name,$link,$type=false){
         $nameTrim = str_replace(' ', '',$name);
-        
+        $nameTrimLower = lcfirst($nameTrim);
         // The btn that use submitForm function in custom.js (had redirect in GroupController)
         $forSubmit = ['publish','unpublish','trash','ordering','save','saveNew', 'saveClose'];
-        if(in_array(lcfirst($nameTrim),$forSubmit)){
-            if($type){
-                $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link&type=$nameTrime')\"> $name </a>";
+        if(in_array($nameTrimLower ,$forSubmit)){
+            if($type==true){
+                $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link&type=$nameTrimLower')\"> $name </a>";
             }else{
                 $xhtml = "<a class='dropdown-item' id='select-tool-" .strtolower($nameTrim). "' href ='#' onclick=\"javascript:submitForm('$link')\"> $name </a>";
             }

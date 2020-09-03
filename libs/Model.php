@@ -46,15 +46,15 @@ class Model{
 	}
 	
 	// DISCONNECT DATABASE
-	// public function __destruct(){
-	// 	mysqli_close($this->connect);
-	// }
+	public function __destruct(){
+		mysqli_close($this->connect);
+	}
 	
 	// INSERT
 	public function insert($data, $type = 'single'){
 		if($type == 'single'){
 			$newQuery 	= $this->createInsertSQL($data);
-			$query 		= "INSERT INTO `$this->table`(".$newQuery['cols'].") VALUES (".$newQuery['vals'].")";
+			echo $query = "INSERT INTO `$this->table`(".$newQuery['cols'].") VALUES (".$newQuery['vals'].")";
 			$this->query($query);
 		}else{
 			foreach($data as $value){
@@ -69,6 +69,8 @@ class Model{
 	// CREATE INSERT SQL
 	public function createInsertSQL($data){
 		$newQuery = array();
+		$cols='';
+		$vals='';
 		if(!empty($data)){
 			foreach($data as $key=> $value){
 				$cols .= ", `$key`";
@@ -82,7 +84,7 @@ class Model{
 	
 	// LAST ID
 	public function lastID(){
-		return mysql_insert_id($this->connect);
+		return mysqli_insert_id($this->connect);
 	}
 	
 	// QUERY
@@ -95,7 +97,7 @@ class Model{
 	public function update($data, $where){
 		$newSet 	= $this->createUpdateSQL($data);
 		$newWhere 	= $this->createWhereUpdateSQL($where);
-		$query = "UPDATE `$this->table` SET " . $newSet . " WHERE $newWhere";
+		echo $query = "UPDATE `$this->table` SET " . $newSet . " WHERE $newWhere";
 		$this->query($query);
 		return $this->affectedRows();
 	}
@@ -113,14 +115,10 @@ class Model{
 	}
 	
 	// CREATE WHERE UPDATE SQL
-	public function createWhereUpdateSQL($data){
+	public function createWhereUpdateSQL($where){
 		$newWhere = '';
-		if(!empty($data)){
-			foreach($data as $value){
-				$newWhere[] = "`$value[0]` = '$value[1]'";
-				$newWhere[] = $value[2];
-			}
-			$newWhere = implode(" ", $newWhere);
+		if(!empty($where)){
+			$newWhere .= "`id` = '$where'";
 		}
 		return $newWhere;
 	}
@@ -194,7 +192,7 @@ class Model{
 		$result = array();
 		if(!empty($query)){
 			$resultQuery = $this->query($query);
-			if(mysqli_num_rows($resultQuery) > 0){
+			if(mysqli_num_rows($resultQuery)){
 				$result = mysqli_fetch_assoc($resultQuery);
 			}
 			mysqli_free_result($resultQuery);

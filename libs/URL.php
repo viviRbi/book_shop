@@ -10,4 +10,8 @@ class URL{
         $url = 'index.php?module='.$module.'&controller='.$controller.'&action='.$action.$linkParams;
         return $url;
     }
+    public static function redirect($link){
+		header('location: ' . $link);
+		exit();
+	}
 }

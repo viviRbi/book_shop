@@ -52,7 +52,7 @@ class Validate{
 	// Run
 	public function run(){
 		foreach($this->rules as $element => $value){
-			if($value['required'] == true && trim($this->source[$element])==null){
+			if($value['required'] == true && !strlen(trim($this->source[$element]))){
 				$this->setError($element, 'is not empty');
 			}else{
 				switch ($value['type']) {
@@ -148,7 +148,7 @@ class Validate{
 	
 	// Validate Status
 	private function validateStatus($element, $options){
-		if($options['deny']){
+		if($options['deny']=='default'){
 			$this->setError($element, 'Please do not choose a default value');
 		}
 	}

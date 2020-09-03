@@ -1,6 +1,8 @@
 <?php 
 class GroupModel extends Model{
 
+    private $_columns = array('id','name','group_acp','created','created_by', 'modified', 'modified_by', 'status','ordering');
+
     public function countItems($arrParam, $option=null){
         $WhereQuery = '';
         // Count: search keyword
@@ -35,8 +37,8 @@ class GroupModel extends Model{
             $column = str_replace(' ','_',$column);
             $dir = strtolower($arrParam['filter_column_dir']);
         }else{
-            $column = 'ordering';
-            $dir = 'asc';
+            $column = 'id';
+            $dir = 'desc';
         }
 
         // Filter: search keyword
@@ -147,5 +149,42 @@ class GroupModel extends Model{
            
         }
     }
+
+    public function saveItems($arrParam,$option=null){
+        if($option['task'] == 'add'){
+            if (isset($arrParam['form'])) {
+                $arrParam['form']['created'] = date('Y-m-d',time());
+                $arrParam['form']['created_by'] = 1;
+                $data = array_intersect_key($arrParam['form'], array_flip($this->_columns));
+                $this->insert($data);
+                Session::set('message',array('class'=>'success','content'=>"Successfully added a new group"));
+                return $this->lastID();
+            }
+        } 
+        if($option['task'] == 'edit'){
+            if (isset($arrParam['form'])) {
+                $arrParam['form']['modified'] = date('Y-m-d',time());
+                $arrParam['form']['modified_by'] = 1;
+                $data = array_intersect_key($arrParam['form'], array_flip($this->_columns));
+                $this->update($data,$arrParam['form']['id']);
+                Session::set('message',array('class'=>'success','content'=>"Successfully edited a new group"));
+                return $arrParam['form']['id'];
+            }
+        }   
+    }
+
+    public function infoItem($arrParam,$option=null){
+        
+        if(!$option){
+            $query[] = "SELECT `id`,`name`,`group_acp`,`status`,`ordering`";
+            $query[] = "FROM `$this->table`";
+            $query[] = "WHERE `id` = '" . $arrParam['id'] . "'";
+            $query = implode(" ", $query);
+            $result = $this->singleRecord($query);
+            return $result;
+        }     
+    }
+
+   
 }
 ?>

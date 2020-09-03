@@ -16,25 +16,41 @@ class GroupController extends Controller{
         $this->_view->pagination = new Pagination($totalItems,$this->_arrParam['pagination']);
         $this->_view->render('group/index');
     }
-    // Add group + Edit group
+    // Add group + Edit group form.php
     public function formAction(){
         $this->setUpTemplate();
-        $this->_view->setTitle('User Manager: User group :Add');
-        $this->_view->_headline = 'User Manager: User group :Add';
-        if(isset($this->_arrParam['form'])&&$this->_arrParam['form']['token']>0){
+        // if(isset($_GET['id'])||isset($this->_arrParam['form'])&&!$this->_arrParam['form']['id']==''){
+            $this->_view->setTitle('User Manager: User group :Edit');
+            $this->_view->_headline = 'User Manager: User group :Edit';
+            $data= isset($this->_arrParam['form'])?$this->_arrParam['form']:$this->_model->infoItem($this->_arrParam);
+            $this->_arrParam['form']= $data;
+            // if(empty($data)) URL::redirect(URL::createLink('admin','group','form'));
+        // }else{
+        //     $this->_view->setTitle('User Manager: User group :Add');
+        //     $this->_view->_headline = 'User Manager: User group :Add';
+        // }
+
+        if(isset($this->_arrParam['form'])&& isset($this->_arrParam['form']['token'])&&$this->_arrParam['form']['token']>0){
+            echo "sdsd";
             $validate = isset($this->_arrParam['form'])?new Validate($this->_arrParam['form']):'';
-            $validate->addRule('title', 'string', array('min'=>3, 'max'=>255))
+            $validate->addRule('name', 'string', array('min'=>3, 'max'=>255))
                      ->addRule('ordering', 'int',array('min'=>1, 'max'=>100))
-                     ->addRule('status','status',array('deny'=>'default'))
-                     ->addRule('groupAcp','status',array('deny'=>'default'));
+                     ->addRule('status','status',array('deny'=>'0'))
+                     ->addRule('group_acp','status',array('deny'=>'1'));
             $validate->run();
+            $this->_arrParam['form'] = $validate->getResult();
             if($validate->isValid()==false){
                 $this->_view->errors = $validate->showErrors();
             }else{
-                $result = $this->_model->deleteItems($this->_arrParam);
-                echo json_encode($result);
+                $task = $this->_arrParam['form']['id']==''? 'add':'edit'; 
+                echo $id= $this->_model->saveItems($this->_arrParam,array('task'=>$task));
+                $type = isset($this->_arrParam['type'])?$this->_arrParam['type']:'';
+                if($type == 'saveClose') URL::redirect(URL::createLink('admin','group','index'));
+                if($type == 'saveNew') URL::redirect(URL::createLink('admin','group','form'));
+                if($type == 'save') URL::redirect(URL::createLink('admin','group','form',array('id'=>$id)));
             }
-        }
+        } 
+        $this->_view->_arrParam = $this->_arrParam;
         $this->_view->render('group/form');
     }
 
