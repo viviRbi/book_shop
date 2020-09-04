@@ -16,9 +16,11 @@ function changeStatus(link){
         $(element + ' span').removeClass(classRemove).addClass(classAdd)
     },'json')
 }
+
 $.get('/book_shop/index.php?module=admin&controller=group&action=save', function(data){
     console.log(data);
 },'json')
+
 function changeGroupACP(link){
     $.get(link, function(data){
         var element = 'a#group-acp-' + data[0];
@@ -42,10 +44,15 @@ $(document).ready(function(){
             this.checked = checkStatus;
         })
     })
+    $('#selectGroupACP').change(function(){
+        $('#adminForm').submit();
+    })
+    $('#selectStatus').change(function(){
+        $('#adminForm').submit();
+    })
 })
 
 function submitForm(link){
-    console.log(link);
     $('#adminForm').attr('action',link);
     $('#adminForm').submit();
 }

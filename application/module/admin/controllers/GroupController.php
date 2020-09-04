@@ -19,19 +19,18 @@ class GroupController extends Controller{
     // Add group + Edit group form.php
     public function formAction(){
         $this->setUpTemplate();
-        // if(isset($_GET['id'])||isset($this->_arrParam['form'])&&!$this->_arrParam['form']['id']==''){
+        if(isset($_GET['id'])||isset($this->_arrParam['form'])&&!$this->_arrParam['form']['id']==''){
             $this->_view->setTitle('User Manager: User group :Edit');
             $this->_view->_headline = 'User Manager: User group :Edit';
             $data= isset($this->_arrParam['form'])?$this->_arrParam['form']:$this->_model->infoItem($this->_arrParam);
             $this->_arrParam['form']= $data;
-            // if(empty($data)) URL::redirect(URL::createLink('admin','group','form'));
-        // }else{
-        //     $this->_view->setTitle('User Manager: User group :Add');
-        //     $this->_view->_headline = 'User Manager: User group :Add';
-        // }
+            if(empty($data)) URL::redirect(URL::createLink('admin','group','form'));
+        }else{
+            $this->_view->setTitle('User Manager: User group :Add');
+            $this->_view->_headline = 'User Manager: User group :Add';
+        }
 
         if(isset($this->_arrParam['form'])&& isset($this->_arrParam['form']['token'])&&$this->_arrParam['form']['token']>0){
-            echo "sdsd";
             $validate = isset($this->_arrParam['form'])?new Validate($this->_arrParam['form']):'';
             $validate->addRule('name', 'string', array('min'=>3, 'max'=>255))
                      ->addRule('ordering', 'int',array('min'=>1, 'max'=>100))
@@ -43,7 +42,7 @@ class GroupController extends Controller{
                 $this->_view->errors = $validate->showErrors();
             }else{
                 $task = $this->_arrParam['form']['id']==''? 'add':'edit'; 
-                echo $id= $this->_model->saveItems($this->_arrParam,array('task'=>$task));
+                $id= $this->_model->saveItems($this->_arrParam,array('task'=>$task));
                 $type = isset($this->_arrParam['type'])?$this->_arrParam['type']:'';
                 if($type == 'saveClose') URL::redirect(URL::createLink('admin','group','index'));
                 if($type == 'saveNew') URL::redirect(URL::createLink('admin','group','form'));

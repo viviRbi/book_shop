@@ -59,7 +59,7 @@ class Helper{
         $xhtml = '';
         foreach($arrValue as $key=>$value){
             $xhtml .= "<option value='$key' class='text-center'";
-            if ($key = $keySelect){
+            if ($key == $keySelect){
                 $xhtml .= 'selected = selected';
             }
             $xhtml .= "> $value </option>";

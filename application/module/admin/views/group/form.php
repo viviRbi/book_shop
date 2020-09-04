@@ -42,7 +42,7 @@ Session::destroy();
             </div>
         </div>
 
-        <input type='text' name="form[token]" value='<?php echo time()?>'>
+        <input type='hidden' name="form[token]" value='<?php echo time()?>'>
         <input type='hidden' name="form[id]" value='<?php echo (isset($_GET['id']))?$_GET['id']:""?>'>
 
     </form>

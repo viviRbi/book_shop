@@ -16,11 +16,21 @@ class GroupModel extends Model{
         }
 
         // Count: search status
-        if(isset($arrParam['filter_status'])&&!$arrParam['filter_status']==2){
+        if(isset($arrParam['filter_status'])&&$arrParam['filter_status']<2){
             if(!empty($arrParam['filter_keyword'])){
                 $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
             }else{
                 $WhereQuery = " WHERE `status`= '" . $arrParam['filter_status'] ."'";
+            }
+            $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
+        }
+
+        // Count: search group acp
+        if(isset($arrParam['filter_group_acp'])&&$arrParam['filter_group_acp']<2){
+            if(isset($arrParam['filter_status']) && $arrParam['filter_status']!=2 || !empty($arrParam['filter_keyword'])){
+                $WhereQuery .= " AND `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
+            }else{
+                $WhereQuery = " WHERE `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
             }
             $query= "SELECT COUNT(`id`) FROM `" .TBL_GROUP. "`" . $WhereQuery;
         }
@@ -51,8 +61,8 @@ class GroupModel extends Model{
             $query= "SELECT * FROM `" .TBL_GROUP. "`" . "ORDER BY `$column` $dir";
         }
 
-        // Filter: search status
-        if(isset($arrParam['filter_status'])&&!$arrParam['filter_status']==2){
+        // Filter: status
+        if(isset($arrParam['filter_status'])&&$arrParam['filter_status']!=2){
             if(!empty($arrParam['filter_keyword'])){
                 $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
             }else{
@@ -61,6 +71,18 @@ class GroupModel extends Model{
             $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
         }
 
+        // Filter: group ACP
+        if(isset($arrParam['filter_group_acp'])&&$arrParam['filter_group_acp']!=2){
+            if(isset($arrParam['filter_status']) && $arrParam['filter_status']!=2 || !empty($arrParam['filter_keyword'])){
+                $WhereQuery .= " AND `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
+            }else{
+                $WhereQuery = " WHERE `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
+            }
+            $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
+        }
+echo $WhereQuery;
+// echo strlen($arrParam['filter_status']);
+print_r($arrParam);
         // Pagination
         $pagination = $arrParam['pagination'];
         $totalItemsPerPage = $pagination['totalItemsPerPage'];
