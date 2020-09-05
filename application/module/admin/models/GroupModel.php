@@ -71,18 +71,9 @@ class GroupModel extends Model{
             $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
         }
 
-        // Filter: group ACP
-        if(isset($arrParam['filter_group_acp'])&&$arrParam['filter_group_acp']!=2){
-            if(isset($arrParam['filter_status']) && $arrParam['filter_status']!=2 || !empty($arrParam['filter_keyword'])){
-                $WhereQuery .= " AND `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
-            }else{
-                $WhereQuery = " WHERE `group_acp`= '" . $arrParam['filter_group_acp'] ."'";
-            }
-            $query= "SELECT * FROM `" .TBL_GROUP. "`" . $WhereQuery. " ORDER BY `$column` $dir";
-        }
-echo $WhereQuery;
+
 // echo strlen($arrParam['filter_status']);
-print_r($arrParam);
+
         // Pagination
         $pagination = $arrParam['pagination'];
         $totalItemsPerPage = $pagination['totalItemsPerPage'];

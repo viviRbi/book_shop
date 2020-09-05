@@ -6,9 +6,9 @@ class GroupController extends Controller{
     // Show group list
     public function indexAction(){
         $this->setUpTemplate();
-        $this->_view->setTitle('User Manager: User group');
-        $this->_view->items = $this->_model->listItems($this->_arrParam,'sd');
-        $this->_view->_headline = 'User Manager: User group';
+        $this->_view->setTitle('User group::List');
+        $this->_view->items = $this->_model->listItems($this->_arrParam);
+        $this->_view->_headline = 'User group';
 
         // Total Items
         $countArr = $this->_model->countItems($this->_arrParam,null)[0];
@@ -20,14 +20,14 @@ class GroupController extends Controller{
     public function formAction(){
         $this->setUpTemplate();
         if(isset($_GET['id'])||isset($this->_arrParam['form'])&&!$this->_arrParam['form']['id']==''){
-            $this->_view->setTitle('User Manager: User group :Edit');
-            $this->_view->_headline = 'User Manager: User group :Edit';
+            $this->_view->setTitle('User group :Edit');
+            $this->_view->_headline = 'User group :Edit';
             $data= isset($this->_arrParam['form'])?$this->_arrParam['form']:$this->_model->infoItem($this->_arrParam);
             $this->_arrParam['form']= $data;
             if(empty($data)) URL::redirect(URL::createLink('admin','group','form'));
         }else{
-            $this->_view->setTitle('User Manager: User group :Add');
-            $this->_view->_headline = 'User Manager: User group :Add';
+            $this->_view->setTitle('User group :Add');
+            $this->_view->_headline = 'User group :Add';
         }
 
         if(isset($this->_arrParam['form'])&& isset($this->_arrParam['form']['token'])&&$this->_arrParam['form']['token']>0){
