@@ -5,37 +5,35 @@ class userModel extends Model{
 
     public function countItems($arrParam, $option=null){
         $WhereQuery = '';
+        $query= array();
+
         // Count: search keyword
         if(!empty($arrParam['filter_keyword'])){
             $keyword = '"%' . $arrParam['filter_keyword'] .'%"';
-            $WhereQuery .= " WHERE `name` LIKE " . $keyword . " ";
-
-            $query= "SELECT COUNT(`id`) FROM `" .TBL_USER. "`" . $WhereQuery;
-        }else{
-            $query= "SELECT COUNT(`id`) FROM `" .TBL_USER. "`";
+            $WhereQuery .= " AND `username` LIKE " . $keyword . " ";
         }
 
         // Count: search status
         if(isset($arrParam['filter_status'])&&$arrParam['filter_status']<2){
-            if(!empty($arrParam['filter_keyword'])){
-                $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
-            }else{
-                $WhereQuery = " WHERE `status`= '" . $arrParam['filter_status'] ."'";
-            }
-            $query= "SELECT COUNT(`id`) FROM `" .TBL_USER. "`" . $WhereQuery;
+            $WhereQuery .= " AND `u`.`status`= '" . $arrParam['filter_status'] ."'";          
         }
 
-        // Count: search user acp
-        if(isset($arrParam['filter_user_acp'])&&$arrParam['filter_user_acp']<2){
-            if(isset($arrParam['filter_status']) && $arrParam['filter_status']!=2 || !empty($arrParam['filter_keyword'])){
-                $WhereQuery .= " AND `user_acp`= '" . $arrParam['filter_user_acp'] ."'";
-            }else{
-                $WhereQuery = " WHERE `user_acp`= '" . $arrParam['filter_user_acp'] ."'";
-            }
-            $query= "SELECT COUNT(`id`) FROM `" .TBL_USER. "`" . $WhereQuery;
-        }
+        $query[] = "SELECT `u`.`id`, `u`.`username`,`u`.`email`, `u`.`status`, `u`.`fullname`, `u`.`ordering`, `u`.`created`, `u`.`created_by`, `u`.`modified`, `u`.`modified_by`, `g`.`name` AS `group_name` " ;
+        $query[] = " FROM `".TBL_USER."` AS `u`, `" . TBL_GROUP . "` AS `g`";
+        $query[] = " WHERE `u`.`group_id`=`g`.`id`";
+        $query = implode(' ',$query);
+        $query = $query. $WhereQuery;
 
         $result= $this->listRecord($query);
+        return $result;
+    }
+
+    public function itemInSelectbox($arrParam, $option = null){
+        $result=array();
+        if($option == null){
+            $query = "SELECT `id`,`name` FROM `" . TBL_GROUP . "`";
+            $result = $this->fetchPairs($query);
+        }
         return $result;
     }
 
@@ -55,21 +53,24 @@ class userModel extends Model{
         // Filter: search keyword
         if(!empty($arrParam['filter_keyword'])){
             $keyword = '"%' . $arrParam['filter_keyword'] .'%"';
-            $WhereQuery .= " AND `name` LIKE " . $keyword . " ";
+            $WhereQuery .= " AND `username` LIKE " . $keyword . " ";
         }
 
         // Filter: status
         if(isset($arrParam['filter_status'])&&$arrParam['filter_status']!=2){
-                $WhereQuery .= " AND `status`= '" . $arrParam['filter_status'] ."'";
+                $WhereQuery .= " AND `u`.`status`= '" . $arrParam['filter_status'] ."'";
         }
-        $query[] = "SELECT `u`.`id`, `u`.`username`,`u`.`email`, `u`.`status`, `u`.`fullname`, `u`.`ordering`, `u`.`created`, `u`.`created_by`, `u`.`modified`, `u`.`modified_by`, `g`.`name` AS `group_name` " ;
-        $query[] = "FROM `".TBL_USER."` AS `u`, `" . TBL_GROUP . "` AS `g`";
-        $query[] = "WHERE `u`.`group_id`=`g`.`id`";
-        $query = implode(' ',$query);
-        $query = $query. $WhereQuery. "ORDER BY `$column` $dir";
-        // $query= "SELECT * FROM `" .TBL_USER. "`" . $WhereQuery. " ORDER BY `$column` $dir";
 
-// echo strlen($arrParam['filter_status']);
+        // Filter: group
+        if(isset($arrParam['filter_group_id'])&&$arrParam['filter_group_id']!='default'){
+            $WhereQuery .= " AND `g`.`id`= '" . $arrParam['filter_group_id'] ."'";
+    }
+
+        $query[] = "SELECT `u`.`id`, `u`.`username`,`u`.`email`, `u`.`status`, `u`.`fullname`, `u`.`ordering`, `u`.`created`, `u`.`created_by`, `u`.`modified`, `u`.`modified_by`, `g`.`name` AS `group_name` " ;
+        $query[] = " FROM `".TBL_USER."` AS `u`, `" . TBL_GROUP . "` AS `g`";
+        $query[] = " WHERE `u`.`group_id`=`g`.`id`";
+        $query = implode(' ',$query);
+        $query = $query. $WhereQuery. " ORDER BY `$column` $dir";
 
         // Pagination
         $pagination = $arrParam['pagination'];
@@ -98,7 +99,7 @@ class userModel extends Model{
         if($option['task'] == 'change-ajax-user-acp'){
             $user_acp = ($arrParam['user_acp']==0)? 1:0;
             $id = $arrParam['id'];
-            echo $query = "UPDATE `". TBL_USER ."` SET `user_acp` = $user_acp WHERE `id`='" .$id ."'";
+            $query = "UPDATE `". TBL_USER ."` SET `user_acp` = $user_acp WHERE `id`='" .$id ."'";
             $this->query($query);
             return array($id,$user_acp ,URL::createLink('admin','user','ajaxuserACP',array('id'=>$id,'user_acp '=>$user_acp)));
         }
@@ -115,7 +116,7 @@ class userModel extends Model{
                     $arrId = $arrParam['check'][0];
                 }
                 $affectecdItems = sizeof($arrParam['check']);
-                echo $query = "UPDATE `". TBL_USER ."` SET `status`=".$status." WHERE `id` IN (". $arrId .")";
+                $query = "UPDATE `". TBL_USER ."` SET `status`=".$status." WHERE `id` IN (". $arrId .")";
                 $this->query($query);
                 Session::set('message',array('class'=>'success','content'=>"Successfully change status for $affectecdItems items"));
             }else{

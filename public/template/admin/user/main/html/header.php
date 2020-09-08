@@ -5,8 +5,14 @@
     include_once MODULE_PATH . ADMIN_MODULE . DS. VIEW.DS.'User'.DS.'nav-tabs'.DS.'index.php';
 // Filter Status
     $arrStatus = array(0=>'Unpublish', 1=>'Publish', 2=> '-Select Status-');
-    echo $filter_status = isset($this->_arrParam['filter_status'])?$this->_arrParam['filter_status']: 2;
+    $filter_status = isset($this->_arrParam['filter_status'])?$this->_arrParam['filter_status']: 2;
     $selectBoxStatus = Helper::cmsSelectbox($arrStatus, $filter_status);
+
+    $arrGroup = $this->slbGroup;
+    $arrGroup['default'] = '-Select Group-';
+    // print_r( $this);
+    $filter_group = isset($this->_arrParam['filter_group_id'])?$this->_arrParam['filter_group_id']: 'default';
+    $selectBoxGroup = Helper::cmsSelectbox($arrGroup, $filter_group);
 
     ?>
         
@@ -32,6 +38,10 @@
 
                 <select class="custom-select" id="selectStatus" name='filter_status'>
                     <?php echo $selectBoxStatus;?>
+                </select>
+
+                <select class="custom-select" id="selectGroup" name='filter_group_id'>
+                    <?php echo $selectBoxGroup;?>
                 </select>
 
                 <?php $this->_arrParam['action'] == 'index'? include_once MODULE_PATH . ADMIN_MODULE . DS. VIEW.DS.'User'.DS.'select-tool'.DS.'index.php':null ?>

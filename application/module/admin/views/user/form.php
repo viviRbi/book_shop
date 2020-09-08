@@ -7,14 +7,14 @@ Session::destroy();
     <form action='#' method='post' name='adminForm' id='adminForm'>
 
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Group Name</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label">User Name</label>
             <div class="col-sm-10">
             <input type="text" class="form-control" id="groupName" name="form[name]" value=<?php echo isset($this->_arrParam['form']['name'])? $this->_arrParam['form']['name']:""?> >
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Group Status</label>
+            <label for="inputPassword" class="col-sm-2 col-form-label">User Status</label>
             <div class="col-sm-10">
                 <select class="custom-select" id="inputGroupSelect01" name="form[status]">
                     <option value="default" <?php echo !isset($this->_arrParam['form']['status'])||$this->_arrParam['form']['status']=='default'? "selected":""?>>Choose...</option>
@@ -25,7 +25,7 @@ Session::destroy();
         </div>
 
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Group ACP</label>
+            <label for="inputPassword" class="col-sm-2 col-form-label">Group</label>
             <div class="col-sm-10">
                 <select class="custom-select" id="inputGroupSelect01" name="form[group_acp]">
                     <option value="default" <?php echo !isset($this->_arrParam['form']['group_acp'])||$this->_arrParam['form']['group_acp']=='default'? "selected":""?>>Choose...</option>
@@ -36,7 +36,7 @@ Session::destroy();
         </div>
 
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Group Order</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label">User Order</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="form[ordering]" value=<?php echo isset($this->_arrParam['form']['ordering'])? $this->_arrParam['form']['ordering']:""?>>
             </div>

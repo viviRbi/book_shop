@@ -28,7 +28,7 @@ $(document).ready(function(){
             this.checked = checkStatus;
         })
     })
-    $('#selectGroupACP').change(function(){
+    $('#selectGroup').change(function(){
         $('#adminForm').submit();
     })
     $('#selectStatus').change(function(){

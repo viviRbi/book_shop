@@ -14,6 +14,9 @@ class UserController extends Controller{
         $countArr = $this->_model->countItems($this->_arrParam,null)[0];
         $totalItems = $countArr[key($countArr)];
         $this->_view->pagination = new Pagination($totalItems,$this->_arrParam['pagination']);
+
+        // Create group selectbox
+        $this->_view->slbGroup = $this->_model->itemInSelectbox($this->_arrParam,null);
         $this->_view->render('user/index');
     }
     // Add user + Edit user form.php

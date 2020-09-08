@@ -97,7 +97,7 @@ class Model{
 	public function update($data, $where){
 		$newSet 	= $this->createUpdateSQL($data);
 		$newWhere 	= $this->createWhereUpdateSQL($where);
-		echo $query = "UPDATE `$this->table` SET " . $newSet . " WHERE $newWhere";
+		$query = "UPDATE `$this->table` SET " . $newSet . " WHERE $newWhere";
 		$this->query($query);
 		return $this->affectedRows();
 	}
@@ -164,27 +164,18 @@ class Model{
 	}
 	
 	// LIST RECORD
-	public function createSelectbox($query, $name, $keySelected = null, $class = null){
+	public function fetchPairs($query){
 		$result = array();
 		if(!empty($query)){
 			$resultQuery = $this->query($query);
 			if(mysqli_num_rows($resultQuery) > 0){
-				$xhtml = '<select class="'.$class.'" name="'.$name.'">';
-				$xhtml .= '<option value="0">Select a value</option>';
 				while($row = mysqli_fetch_assoc($resultQuery)){
-					if($keySelected == $row['id'] && $keySelected != null){
-						$xhtml .= '<option value="'.$row['id'].'" selected="true">'.$row['name'].'</option>';
-					}else{
-						$xhtml .= '<option value="'.$row['id'].'">'.$row['name'].'</option>';
-					}
+					$result[$row['id']] = $row['name'];
 				}
-				$xhtml .= '</select>';
-				mysqli_free_result($resultQuery);
 			}
+			mysqli_free_result($resultQuery);
 		}
-	
-		return $xhtml;
-	
+		return $result;
 	}
 	
 	// SINGLE RECORD
